@@ -21,7 +21,7 @@ public class schedule extends AppCompatActivity {
             }
         });
     }
-    public void add() {
+    public void add(){
         Intent tmp = new Intent(this, addcourse.class);
         startActivity(tmp);
     }
