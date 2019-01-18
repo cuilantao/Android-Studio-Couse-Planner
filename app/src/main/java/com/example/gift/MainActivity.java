@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void start(){
-        Intent tmp = new Intent(this,schedule.class);
+        Intent tmp = new Intent(this,Main_menu.class);
         startActivity(tmp);
     }
 }

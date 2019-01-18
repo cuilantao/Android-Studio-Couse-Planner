@@ -17,12 +17,15 @@ public class addcourse extends AppCompatActivity {
     List<String> datas = new ArrayList<>();
     List<String> avaliable_times = new ArrayList<>();
     List<String> backup_times = new ArrayList<>();
+    List<String> delete_times = new ArrayList<>();
     TextView textView;
+    TextView textView1;
     ScrollChoice scrollChoice;
     boolean add = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        backup_times.add("Wednesday");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addcourse);
         Button confirm = findViewById(R.id.confirm);
@@ -36,7 +39,21 @@ public class addcourse extends AppCompatActivity {
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
+                    int i;
+                    String a = "";
+                    for (i = 0; i < avaliable_times.size(); i++){
+                        a += avaliable_times.get(i);
+                        a += ",";
+                    }
+                    textView1.setText("Current time " + a);
                 }
+            }
+        });
+        Button modify = findViewById(R.id.delete);
+        modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
         initViews();
@@ -62,5 +79,6 @@ public class addcourse extends AppCompatActivity {
     private void initViews(){
         textView = (TextView) findViewById(R.id.txt_result);
         scrollChoice = (ScrollChoice)findViewById(R.id.scroll_choice);
+        textView1 = (TextView) findViewById(R.id.current_time);
     }
 }

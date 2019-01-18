@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorAccent">
-    
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,9 +34,35 @@
         app:scroll_item_align="center"
         app:scroll_selected_item_text_color="#FFC107"
         />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:text="Modify" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:text="Confirm" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id = "@+id/txt_result"
+        android:textSize="32dp"
         android:text="choice"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id = "@+id/current_time"
+        android:textSize="32dp"
+        android:text="Current time"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

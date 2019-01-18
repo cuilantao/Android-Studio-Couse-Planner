@@ -10,7 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="375dp"
         android:layout_height="250dp"
-        android:text="A software that helps to schedule courses"
+        android:text="A software that plans your
+      academic life better"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
