@@ -2,38 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/colorAccent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Please select your available days"
-        android:textColor = "@android:color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        />
+        android:background="?attr/colorAccent">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Please select your available days"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <com.webianks.library.scroll_choice.ScrollChoice
+        android:id="@+id/scroll_choice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id = "@+id/scroll_choice"
-        app:scroll_background_color="#F5f5f5"
-        app:scroll_selected_item_background="#FFF"
-        app:scroll_item_text_color="?attr/colorAccent"
         app:scroll_atmospheric="true"
+        app:scroll_background_color="#F5f5f5"
         app:scroll_indicator="true"
         app:scroll_indicator_color="#FFF"
         app:scroll_item_align="center"
-        app:scroll_selected_item_text_color="#FFC107"
-        />
+        app:scroll_item_text_color="?attr/colorAccent"
+        app:scroll_selected_item_background="#FFF"
+        app:scroll_selected_item_text_color="#FFC107" />
 
     <Button
         android:id="@+id/delete"
@@ -48,21 +49,41 @@
         android:text="Confirm" />
 
     <TextView
+        android:id="@+id/txt_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id = "@+id/txt_result"
-        android:textSize="32dp"
-        android:text="choice"/>
+        android:text="choice"
+        android:textSize="25dp" />
 
     <TextView
+        android:id="@+id/current_time"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id = "@+id/current_time"
-        android:textSize="32dp"
-        android:text="Current time"/>
+        android:layout_height="wrap_content"
+        android:text="Current time"
+        android:textSize="25dp" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp">
+
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="193dp"
+            android:layout_height="93dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginRight="108dp"
+            android:text="Finished"
+            android:textSize="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
