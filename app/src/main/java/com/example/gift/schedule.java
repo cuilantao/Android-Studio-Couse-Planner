@@ -22,7 +22,7 @@ public class schedule extends AppCompatActivity {
         });
     }
     public void add(){
-        Intent tmp = new Intent(this, addcourse.class);
+        Intent tmp = new Intent(this, course_info.class);
         startActivity(tmp);
     }
 }
