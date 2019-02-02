@@ -13,9 +13,11 @@ import java.util.List;
 
 public class dialog_for_time extends AppCompatDialogFragment {
     private List<String> time = new ArrayList<>();
+    public static boolean finished = false;
+    final List<String> mSelectedItems = new ArrayList<>();
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final List<String> mSelectedItems = new ArrayList<>();  // Where we track the selected items
+        // Where we track the selected items
         final String[] select_time = new String[]{
                 "Monday",
                 "Tuesday",
@@ -57,9 +59,10 @@ public class dialog_for_time extends AppCompatDialogFragment {
                             boolean checked = checkedtimearray[i];
                             if (checked){
                                 mSelectedItems.add(timelist.get(i));
+                                time.add(timelist.get(i));
                             }
                         }
-                        time = mSelectedItems;
+                        course_info.showtime(mSelectedItems);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -69,8 +72,5 @@ public class dialog_for_time extends AppCompatDialogFragment {
                 });
 
         return builder.create();
-    }
-    public List get(){
-        return time;
     }
 }

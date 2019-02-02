@@ -1,15 +1,15 @@
 package com.example.gift;
 
+import java.util.HashMap;
+
 public class course {
     String name;
-    String start_time;
-    String end_time;
+    HashMap time;
     String day;
-    public course(String name, String start_time, String end_time, String day){
+    String lecture_code;
+    public course(String name, String lecture_code, HashMap time){
         this.name = name;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.day = day;
+        this.lecture_code = lecture_code;
+        this.time = time;
     }
-
 }
