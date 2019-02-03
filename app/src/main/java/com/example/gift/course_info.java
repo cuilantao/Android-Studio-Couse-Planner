@@ -9,13 +9,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class course_info extends AppCompatActivity {
+    EditText time;
+    EditText time1;
+    EditText time2;
+    EditText coursecode;
+    EditText mEdit;
     TextView textView1;
+    private course_manager current = course_manager.get_instance();
     TextView textView2;
     TextView textView3;
     static List<TextView> sad = new ArrayList<>();
+    List<EditText> course = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +32,9 @@ public class course_info extends AppCompatActivity {
         sad.add(textView1);
         sad.add(textView2);
         sad.add(textView3);
-        final EditText mEdit = (EditText)findViewById(R.id.coursecode);
+        course.add(time);
+        course.add(time1);
+        course.add(time2);
         Button select_time = findViewById(R.id.select_time);
         Button confirm = findViewById(R.id.confirm);
         select_time.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +71,25 @@ public class course_info extends AppCompatActivity {
         textView1 = findViewById(R.id.textView5);
         textView2 = findViewById(R.id.textView6);
         textView3 = findViewById(R.id.textView7);
+        time = findViewById(R.id.editText);
+        time1 = findViewById(R.id.editText2);
+        time2 = findViewById(R.id.editText3);
+        coursecode = findViewById(R.id.course_code);
+        mEdit = findViewById(R.id.coursecode);
     }
     private void makecourse(){
-
+        HashMap<String, String> course_time = new HashMap<>();
+        int i;
+        int j = 0;
+        for (i=0;i<3;i++){
+            if (sad.get(i).getText().toString() == "Null"){
+                j++;
+            }
+        }
+        for (i=0;i<j;i++){
+            course_time.put(sad.get(i).getText().toString(), course.get(i).getText().toString());
+        }
+        course p = new course(mEdit.getText().toString(), coursecode.getText().toString(), course_time);
+        current.add_course(p);
     }
 }

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class course_manager {
-    private static course_manager single_instance = null;
+    public static course_manager single_instance = null;
     private List<course> current_course = new ArrayList<>();
-    public course_manager get_instance(){
+    public static course_manager get_instance(){
         if (single_instance == null){
             return new course_manager();
         }
