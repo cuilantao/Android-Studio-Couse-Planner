@@ -24,17 +24,22 @@ public class course_info extends AppCompatActivity {
     TextView textView3;
     static List<TextView> sad = new ArrayList<>();
     List<EditText> course = new ArrayList<>();
+    doneclass we = new doneclass();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_info);
         initviews();
-        sad.add(textView1);
-        sad.add(textView2);
-        sad.add(textView3);
-        course.add(time);
-        course.add(time1);
-        course.add(time2);
+        if (sad.size() != 3) {
+            sad.add(textView1);
+            sad.add(textView2);
+            sad.add(textView3);
+        }
+        if (course.size() != 3) {
+            course.add(time);
+            course.add(time1);
+            course.add(time2);
+        }
         Button select_time = findViewById(R.id.select_time);
         Button confirm = findViewById(R.id.confirm);
         select_time.setOnClickListener(new View.OnClickListener() {
@@ -55,9 +60,6 @@ public class course_info extends AppCompatActivity {
         p.show(getSupportFragmentManager(), "example dialog");
     }
     public static void showtime(List time){
-        real(time);
-    }
-    private static void real(List time){
         int i;
         for (i=0;i<time.size();i++){
             sad.get(i).setText(time.get(i).toString());
@@ -91,5 +93,6 @@ public class course_info extends AppCompatActivity {
         }
         course p = new course(mEdit.getText().toString(), coursecode.getText().toString(), course_time);
         current.add_course(p);
+        current.print_course();
     }
 }
