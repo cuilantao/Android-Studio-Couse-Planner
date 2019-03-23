@@ -42,6 +42,7 @@ public class course_info extends AppCompatActivity {
         }
         Button select_time = findViewById(R.id.select_time);
         Button confirm = findViewById(R.id.confirm);
+        final Button timetable = findViewById(R.id.timetable);
         select_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +53,12 @@ public class course_info extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 makecourse();
+            }
+        });
+        timetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timetable p = new timetable(current);
             }
         });
     }
@@ -90,9 +97,9 @@ public class course_info extends AppCompatActivity {
         }
         for (i=0;i<j;i++){
             course_time.put(sad.get(i).getText().toString(), course.get(i).getText().toString());
+
         }
         course p = new course(mEdit.getText().toString(), coursecode.getText().toString(), course_time);
         current.add_course(p);
-        current.print_course();
     }
 }

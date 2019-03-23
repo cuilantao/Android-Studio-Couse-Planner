@@ -1,7 +1,11 @@
 package com.example.gift;
 
+import android.os.HardwarePropertiesManager;
+
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 
 public class timetable {
@@ -13,22 +17,24 @@ public class timetable {
     private ArrayList<course> saturday =  new ArrayList<>();
     private ArrayList<course> sunday =  new ArrayList<>();
     private HashMap<String, ArrayList<course>> coursemap = new HashMap<>();
-    private static timetable single_instance = null;
-    public static timetable get_instance(){
-        if (single_instance == null){
-            single_instance = new timetable();
+    public timetable(course_manager courses){
+        for (int i=0; i<courses.get_list().size(); i++){
+            Iterator<String> w = courses.get_list().get(i).time.keySet().iterator();
+            ArrayList<String> tmp = new ArrayList<>();
+            while (w.hasNext()){
+                tmp.add(w.next());
+            }
+            AVLNode tmp1 = new AVLNode(courses.get_list().get(i).name, courses.get_list().get(i).lecture_code, tmp);
         }
-        return single_instance;
     }
-    public boolean append_course(course A){
+/*    public boolean append_course(course A){
         if (detect_collision(A)){
             return false;
         }
         return true;
-    }
-    private boolean detect_collision(course A){
+    }*/
+ /*   private boolean detect_collision(course A){
         Set<String> time = A.time.keySet();
 
-    }
-
+    }*/
 }

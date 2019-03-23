@@ -12,6 +12,7 @@ public class course_manager {
         }
         return single_instance;
     }
+    public List<course> get_list(){return current_course;}
     public void add_course(course a){
         current_course.add(a);
     }
@@ -20,8 +21,6 @@ public class course_manager {
     }
     public void print_course() {
         for (int i=0;i<course_manager.get_instance().current_course.size();i++){
-            System.out.println(course_manager.get_instance().current_course.get(i).name);
-            System.out.println(course_manager.get_instance().current_course.get(i).lecture_code);
             System.out.println(course_manager.get_instance().current_course.get(i).time.keySet());
         }
     }

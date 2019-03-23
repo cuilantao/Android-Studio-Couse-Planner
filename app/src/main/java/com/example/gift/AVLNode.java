@@ -1,5 +1,7 @@
 package com.example.gift;
 
+import java.util.ArrayList;
+
 class AVLNode
 {
     AVLNode left, right;
@@ -15,7 +17,7 @@ class AVLNode
         height = 0;
     }
     /* Constructor */
-    public AVLNode(int n)
+    public AVLNode(String course_name, String lecture_code, ArrayList<String> timeperiod)
     {
         left = null;
         right = null;
