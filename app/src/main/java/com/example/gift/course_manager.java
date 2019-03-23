@@ -22,7 +22,7 @@ public class course_manager {
         for (int i=0;i<course_manager.get_instance().current_course.size();i++){
             System.out.println(course_manager.get_instance().current_course.get(i).name);
             System.out.println(course_manager.get_instance().current_course.get(i).lecture_code);
-            System.out.println(course_manager.get_instance().current_course.get(i).time);
+            System.out.println(course_manager.get_instance().current_course.get(i).time.keySet());
         }
     }
 }

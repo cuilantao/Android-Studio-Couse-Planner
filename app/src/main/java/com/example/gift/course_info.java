@@ -83,8 +83,8 @@ public class course_info extends AppCompatActivity {
         HashMap<String, String> course_time = new HashMap<>();
         int i;
         int j = 0;
-        for (i=0;i<3;i++){
-            if (sad.get(i).getText().toString() == "Null"){
+        for (i=0;i<3;i++) {
+            if (sad.get(i).getText().toString() != "Null") {
                 j++;
             }
         }
