@@ -1,13 +1,16 @@
 package com.example.gift;
 
 import android.os.HardwarePropertiesManager;
+import android.util.Log;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.lang.String;
+import java.util.List;
 import java.util.Set;
 
 public class timetable {
@@ -35,16 +38,9 @@ public class timetable {
                 code.get(course_name).put(courses.get_list().get(i).lecture_code, weekday_to_time);
             }
         }
-        Iterator<String> all_course = code.keySet().iterator();
-        String first = all_course.next();
-        System.out.println(sort(code, first, Monday, Tuesday, Wednesday, Thursday, Friday)); // a recursive planning function
+        sort(code, Monday, Tuesday, Wednesday, Thursday, Friday); // a recursive planning function
     }
 
-    public void view (int[] tmp){
-        for (int i=0;i<tmp.length;i++){
-            System.out.println(tmp[i]);
-        }
-    }
     public void fill_array(HashMap<String, ArrayList<Integer>> weekday_to_time, HashMap<String, String> course_time) {
         Iterator<String> w = course_time.keySet().iterator();
         while (w.hasNext()) {
@@ -67,16 +63,48 @@ public class timetable {
         tmp1.add(end);
     }
 
-    public int sort(HashMap<String, HashMap<String, HashMap<String, ArrayList<Integer>>>> code, String course_name,
+    public void sort(HashMap<String, HashMap<String, HashMap<String, ArrayList<Integer>>>> code,
                     int[] Monday, int[] Tuesday,
                     int[] Wednesday, int[] Thursday, int[] Friday) {
-        HashMap<String, HashMap<String, ArrayList<Integer>>> next = code.get(course_name);
+        int length = code.size();
+        List<List<Integer>> tmp = new ArrayList<>();
+        for (int i = 0; i < code.size(); i++) {
+            Iterator<String> lecture_codes = code.keySet().iterator();
+            String course = lecture_codes.next();
+            int l = code.get(course).size();
+            List<Integer> w = new ArrayList<>();
+            for (int j = 0; j < l; j++) {
+                w.add(j);
+            }
+            tmp.add(w);
+        }
+        cartesianProduct(tmp);
+    }
+    protected <T> List<List<T>> cartesianProduct(List<List<T>> lists) {
+        List<List<T>> resultLists = new ArrayList<List<T>>();
+        if (lists.size() == 0) {
+            resultLists.add(new ArrayList<T>());
+            return resultLists;
+        } else {
+            List<T> firstList = lists.get(0);
+            List<List<T>> remainingLists = cartesianProduct(lists.subList(1, lists.size()));
+            for (T condition : firstList) {
+                for (List<T> remainingList : remainingLists) {
+                    ArrayList<T> resultList = new ArrayList<T>();
+                    resultList.add(condition);
+                    resultList.addAll(remainingList);
+                    resultLists.add(resultList);
+                }
+            }
+        }
+        return resultLists;
+    }
+/*        HashMap<String, HashMap<String, ArrayList<Integer>>> next = code.get(course_name);
         Iterator<String> lecture_codes = next.keySet().iterator();
         while (lecture_codes.hasNext()) {
             String next_lect = lecture_codes.next();
             HashMap<String, ArrayList<Integer>> next_next = next.get(next_lect);
-            Iterator<String> time = next_next.keySet().iterator();
-            reset(code.get(course_name), next_lect, Monday, Tuesday, Wednesday, Thursday, Friday);//we know the current lecture section, we want to reset the previous one
+            Iterator<String> time = next_next.keySet().iterator();//we know the current lecture section, we want to reset the previous one
             int[] monday_tmp = Monday.clone();
             int[] tuesday_tmp = Tuesday.clone();
             int[] wednesday_tmp = Wednesday.clone();
@@ -99,13 +127,13 @@ public class timetable {
                 } else {
                     result = set_array(Friday, i, j);
                 }
-                if (!result && !lecture_codes.hasNext()) { //already false and no other lecture sections
+                if (!result) { //already false and no other lecture sections
                     Monday = monday_tmp;
                     Tuesday = tuesday_tmp;
                     Wednesday = wednesday_tmp;
                     Thursday = thursday_tmp;
                     Friday = friday_tmp;
-                    return 0; // recursive going back to the previous unfinished loop
+                    break;
                 } else if (result && !time.hasNext()) {// already entered every time for this lecture section and everything seems to be okay, we can skip to the next course
                     String rec_next = get_next_class(code.keySet().iterator(), course_name);
                     if (rec_next == "NULL") {
@@ -114,21 +142,33 @@ public class timetable {
                     if (sort(code, rec_next, Monday, Tuesday, Wednesday, Thursday, Friday) == 1) {
                         return 1;
                     }
+                    else{
+                        reset(code.get(course_name), next_lect, Monday, Tuesday, Wednesday, Thursday, Friday);
+                    }
                 }
             }
         }
-        reset(code.get(course_name), "", Monday, Tuesday, Wednesday, Thursday, Friday);
         return 0;
-    }
+    }*/
 
     public boolean set_array(int[] day, int start, int end) {
-        for (int i = start+1; i < end + 1; i++) {
-            if (day[i - 9] == 1) {
-                if (i != end) {
+        int count = 0;
+        if (end - start == 1){
+            if (day[start-9] == 1 && day[end-9] == 1){
+                return false;
+            }
+            else{
+                day[start-9] = 1;
+                day[end-9] = 1;
+                return true;
+            }
+        }
+        else{
+            for (int i =start; i<end+1;i++){
+                if (day[i-9] == 1 && i != start && i != end){
                     return false;
                 }
             }
-            day[i - 9] = 1;
         }
         return true;
     }
