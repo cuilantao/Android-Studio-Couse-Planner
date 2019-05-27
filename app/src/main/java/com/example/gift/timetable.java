@@ -13,6 +13,8 @@ import java.lang.String;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.transform.sax.TemplatesHandler;
+
 public class timetable {
     int[] Monday = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int[] Tuesday = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -78,7 +80,8 @@ public class timetable {
             }
             tmp.add(w);
         }
-        cartesianProduct(tmp);
+        List<List<Integer>> brute = cartesianProduct(tmp);
+        brute_force(brute, code, Monday, Tuesday, Wednesday, Thursday, Friday);
     }
     protected <T> List<List<T>> cartesianProduct(List<List<T>> lists) {
         List<List<T>> resultLists = new ArrayList<List<T>>();
@@ -98,6 +101,56 @@ public class timetable {
             }
         }
         return resultLists;
+    }
+
+    public int brute_force(List<List<Integer>> brute, HashMap<String, HashMap<String, HashMap<String, ArrayList<Integer>>>> code,
+                           int[] Monday, int[] Tuesday,
+                           int[] Wednesday, int[] Thursday, int[] Friday){
+        int suc = 0;
+        for (int i = 0; i < brute.size();i++){
+            List<Integer> cur = brute.get(i);
+            for (int j = 0; j < cur.size(); j++){
+                int pos = cur.get(j); //index of the ith course
+                Iterator<String> iter = code.keySet().iterator();
+                String name = iter.next();//name of the course
+                HashMap<String, HashMap<String, ArrayList<Integer>>> cur_course = code.get(name);//avaliable lection section
+                Iterator<String> iter1 = cur_course.keySet().iterator();
+                int count = -1;
+                String name_of_lect = "";
+                while (count != pos){
+                    name_of_lect = iter1.next();
+                    count++;
+                }
+                HashMap<String, ArrayList<Integer>> lecture_section = cur_course.get(name_of_lect);
+                Iterator<String> time = lecture_section.keySet().iterator();
+                while (time.hasNext()) {
+                    String index = time.next();
+                    ArrayList<Integer> tmp = lecture_section.get(index);
+                    int m = tmp.get(0);
+                    int n = tmp.get(1);
+                    boolean result;
+                    if (index == "Monday") {
+                        result = set_array(Monday, m, n);
+                    } else if (index == "Tuesday") {
+                        result = set_array(Tuesday, m, n);
+                    } else if (index == "Wednesday") {
+                        result = set_array(Wednesday, m, n);
+                    } else if (index == "Thursday") {
+                        result = set_array(Thursday, m, n);
+                    } else {
+                        result = set_array(Friday, m, n);
+                    }
+                    if (result == false){
+                        break;
+                    }
+                    else if(result == true && time.hasNext() == false){
+                        suc = 1;
+                        return suc;
+                    }
+                }
+            }
+        }
+        return 0;
     }
 /*        HashMap<String, HashMap<String, ArrayList<Integer>>> next = code.get(course_name);
         Iterator<String> lecture_codes = next.keySet().iterator();
