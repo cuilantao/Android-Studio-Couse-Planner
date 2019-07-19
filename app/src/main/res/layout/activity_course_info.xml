@@ -66,23 +66,23 @@
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.006"
+        app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_time"
-        app:layout_constraintVertical_bias="0.078" />
+        app:layout_constraintVertical_bias="0.077" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="118dp"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:text="Thursday"
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_time"
-        app:layout_constraintVertical_bias="0.372" />
+        app:layout_constraintVertical_bias="0.369" />
 
     <TextView
         android:id="@+id/textView7"
@@ -92,10 +92,10 @@
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_time"
-        app:layout_constraintVertical_bias="0.601" />
+        app:layout_constraintVertical_bias="0.616" />
 
     <EditText
         android:id="@+id/editText"
@@ -141,10 +141,10 @@
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText3"
-        app:layout_constraintVertical_bias="0.414" />
+        app:layout_constraintVertical_bias="0.451" />
 
     <EditText
         android:id="@+id/course_code"
@@ -156,7 +156,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/editText3"
-        app:layout_constraintVertical_bias="0.547" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <Button
         android:id="@+id/timetable"

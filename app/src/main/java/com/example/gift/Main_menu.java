@@ -21,7 +21,7 @@ public class Main_menu extends AppCompatActivity {
         });
     }
     private void jump(){
-        Intent tmp = new Intent(this, addcourse.class);
+        Intent tmp = new Intent(this, course_info.class);
         startActivity(tmp);
     }
 }

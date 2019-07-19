@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.lang.String;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,8 @@ public class timetable {
     int[] Wednesday = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int[] Thursday = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int[] Friday = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    public static List<Integer> info;
+    public static HashMap<String, HashMap<String, HashMap<String, ArrayList<Integer>>>> code1;
 
     public timetable(course_manager courses) {
         HashMap<String, HashMap<String, HashMap<String, ArrayList<Integer>>>> code = new HashMap<>();
@@ -41,6 +44,7 @@ public class timetable {
             }
         }
         sort(code, Monday, Tuesday, Wednesday, Thursday, Friday); // a recursive planning function
+        code1 = code;
     }
 
     public void fill_array(HashMap<String, ArrayList<Integer>> weekday_to_time, HashMap<String, String> course_time) {
@@ -81,7 +85,7 @@ public class timetable {
             tmp.add(w);
         }
         List<List<Integer>> brute = cartesianProduct(tmp);
-        brute_force(brute, code, Monday, Tuesday, Wednesday, Thursday, Friday);
+        info = brute_force(brute, code, Monday, Tuesday, Wednesday, Thursday, Friday);
     }
     protected <T> List<List<T>> cartesianProduct(List<List<T>> lists) {
         List<List<T>> resultLists = new ArrayList<List<T>>();
@@ -103,14 +107,16 @@ public class timetable {
         return resultLists;
     }
 
-    public int brute_force(List<List<Integer>> brute, HashMap<String, HashMap<String, HashMap<String, ArrayList<Integer>>>> code,
+    public List<Integer> brute_force(List<List<Integer>> brute, HashMap<String, HashMap<String, HashMap<String, ArrayList<Integer>>>> code,
                            int[] Monday, int[] Tuesday,
                            int[] Wednesday, int[] Thursday, int[] Friday){
         int suc = 0;
+        List<Integer> failure =  new LinkedList<>();
+        failure.add(-1);
         for (int i = 0; i < brute.size();i++){
             List<Integer> cur = brute.get(i);
             for (int j = 0; j < cur.size(); j++){
-                int pos = cur.get(j); //index of the ith course
+                int pos = cur.get(j); //index of the jth course
                 Iterator<String> iter = code.keySet().iterator();
                 String name = iter.next();//name of the course
                 HashMap<String, HashMap<String, ArrayList<Integer>>> cur_course = code.get(name);//avaliable lection section
@@ -121,7 +127,7 @@ public class timetable {
                     name_of_lect = iter1.next();
                     count++;
                 }
-                HashMap<String, ArrayList<Integer>> lecture_section = cur_course.get(name_of_lect);
+                HashMap<String, ArrayList<Integer>> lecture_section = cur_course.get(name_of_lect);//we get a hashmap of weekdays corresponds to the lecture sections
                 Iterator<String> time = lecture_section.keySet().iterator();
                 while (time.hasNext()) {
                     String index = time.next();
@@ -141,16 +147,48 @@ public class timetable {
                         result = set_array(Friday, m, n);
                     }
                     if (result == false){
-                        break;
+                        suc = -1;
                     }
-                    else if(result == true && time.hasNext() == false){
+                    else if(result == true && time.hasNext() == false && suc != -1){
                         suc = 1;
-                        return suc;
+                    }
+                }
+            }
+            if (suc == 1){
+                return cur;
+            }
+            suc = 0;
+        }
+        return failure;
+    }
+
+    public static String get_text(String day) {
+        String infomation = "";
+        if (info.get(0) == -1) {
+            return "null";
+        } else {
+            Iterator<String> iter = code1.keySet().iterator();
+            for (int i = 0; i < info.size(); i++){
+                String name = iter.next();//name of the course
+                HashMap<String, HashMap<String, ArrayList<Integer>>> cur_course = code1.get(name);
+                Iterator<String> iter1 = cur_course.keySet().iterator();
+                int count = -1;
+                String name_of_lect = "";
+                while (count != info.get(i)) {
+                    name_of_lect = iter1.next();
+                    count++;
+                }
+                HashMap<String, ArrayList<Integer>> days = cur_course.get(name_of_lect);
+                Iterator<String> weekdays = days.keySet().iterator();
+                while (weekdays.hasNext()) {
+                    String p = weekdays.next();
+                    if (p == day) {
+                        infomation += days.get(day);
                     }
                 }
             }
         }
-        return 0;
+        return infomation;
     }
 /*        HashMap<String, HashMap<String, ArrayList<Integer>>> next = code.get(course_name);
         Iterator<String> lecture_codes = next.keySet().iterator();
@@ -206,22 +244,13 @@ public class timetable {
 
     public boolean set_array(int[] day, int start, int end) {
         int count = 0;
-        if (end - start == 1){
-            if (day[start-9] == 1 && day[end-9] == 1){
-                return false;
-            }
-            else{
-                day[start-9] = 1;
-                day[end-9] = 1;
-                return true;
+        for (int i = start; i < end + 1; i++) {
+            if (day[i - 9] == 1) {
+                count += 1;
             }
         }
-        else{
-            for (int i =start; i<end+1;i++){
-                if (day[i-9] == 1 && i != start && i != end){
-                    return false;
-                }
-            }
+        if (count > 1){
+            return false;
         }
         return true;
     }

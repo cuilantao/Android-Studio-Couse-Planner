@@ -41,14 +41,14 @@ public class course_info extends AppCompatActivity {
             course.add(time2);
         }
         Button select_time = findViewById(R.id.select_time);
-        Button confirm = findViewById(R.id.confirm);
-        final Button timetable = findViewById(R.id.timetable);
         select_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 opendialog();
             }
         });
+        Button confirm = findViewById(R.id.confirm);
+        final Button timetable = findViewById(R.id.timetable);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,12 +59,13 @@ public class course_info extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 timetable p = new timetable(current);
+                display();
             }
         });
     }
-    private void opendialog(){
-        dialog_for_time p = new dialog_for_time();
-        p.show(getSupportFragmentManager(), "example dialog");
+    private void display(){
+        Intent tmp = new Intent(this, Checkweek.class);
+        startActivity(tmp);
     }
     public static void showtime(List time){
         int i;
@@ -85,6 +86,10 @@ public class course_info extends AppCompatActivity {
         time2 = findViewById(R.id.editText3);
         coursecode = findViewById(R.id.course_code);
         mEdit = findViewById(R.id.coursecode);
+    }
+    private void opendialog(){
+        dialog_for_time p = new dialog_for_time();
+        p.show(getSupportFragmentManager(), "example dialog");
     }
     private void makecourse(){
         HashMap<String, String> course_time = new HashMap<>();
