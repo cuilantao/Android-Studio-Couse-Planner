@@ -3,4 +3,5 @@
     <string name="text_hint_email">Email</string>
     <string name="text_hint_password">Password</string>
     <string name="text_login">Login</string>
+    <string name="conflict">Conflict occurs!</string>
 </resources>

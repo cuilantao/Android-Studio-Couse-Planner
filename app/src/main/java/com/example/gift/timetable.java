@@ -1,8 +1,15 @@
 package com.example.gift;
 
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.os.HardwarePropertiesManager;
 import android.util.Log;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,8 +81,8 @@ public class timetable {
                     int[] Wednesday, int[] Thursday, int[] Friday) {
         int length = code.size();
         List<List<Integer>> tmp = new ArrayList<>();
+        Iterator<String> lecture_codes = code.keySet().iterator();
         for (int i = 0; i < code.size(); i++) {
-            Iterator<String> lecture_codes = code.keySet().iterator();
             String course = lecture_codes.next();
             int l = code.get(course).size();
             List<Integer> w = new ArrayList<>();
@@ -115,9 +122,9 @@ public class timetable {
         failure.add(-1);
         for (int i = 0; i < brute.size();i++){
             List<Integer> cur = brute.get(i);
+            Iterator<String> iter = code.keySet().iterator();
             for (int j = 0; j < cur.size(); j++){
-                int pos = cur.get(j); //index of the jth course
-                Iterator<String> iter = code.keySet().iterator();
+                int pos = cur.get(j); //index of the jth coursE
                 String name = iter.next();//name of the course
                 HashMap<String, HashMap<String, ArrayList<Integer>>> cur_course = code.get(name);//avaliable lection section
                 Iterator<String> iter1 = cur_course.keySet().iterator();
@@ -158,14 +165,22 @@ public class timetable {
                 return cur;
             }
             suc = 0;
+            int k = 0;
+            for (k =0;k<Monday.length;k++){
+                Monday[k] = 0;
+                Thursday[k] = 0;
+                Tuesday[k] = 0;
+                Wednesday[k] = 0;
+                Friday[k] = 0;
+            }
         }
         return failure;
     }
 
     public static String get_text(String day) {
         String infomation = "";
-        if (info.get(0) == -1) {
-            return "null";
+        if (info.get(0) == -1){
+            infomation = "null";
         } else {
             Iterator<String> iter = code1.keySet().iterator();
             for (int i = 0; i < info.size(); i++){
@@ -247,6 +262,9 @@ public class timetable {
         for (int i = start; i < end + 1; i++) {
             if (day[i - 9] == 1) {
                 count += 1;
+            }
+            else{
+                day[i-9] = 1;
             }
         }
         if (count > 1){
